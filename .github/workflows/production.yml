@@ -1,0 +1,23 @@
+name: Build and Deploy Production
+on:
+  push:
+    branches: [production]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and Deploy on Production
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+
+          script: |
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/github
+            cd digitalocean_playground
+            git pull git@github.com:Adithya2907/digitalocean_playground.git production
+            npm install
+            pm2 restart main
