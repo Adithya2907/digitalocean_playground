@@ -20,4 +20,4 @@ jobs:
             cd digitalocean_playground
             git pull git@github.com:Adithya2907/digitalocean_playground.git production
             npm install
-            pm2 restart main
+            pm2 restart app
